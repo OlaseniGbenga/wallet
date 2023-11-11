@@ -1,21 +1,13 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app } from "../config/firebase";
 
 // font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faBagShopping,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faInstagram,
-  faPinterest,
-  faFacebookF,
-  faXTwitter,
-  faTelegram,
-} from "@fortawesome/free-brands-svg-icons";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import LogOff from "./authetication/logoff";
 
 export default function HeaderNav() {
   const [isNavVisible, setNavVisibility] = useState(false);
@@ -25,6 +17,25 @@ export default function HeaderNav() {
     setNavVisibility(!isNavVisible);
     setMavVisibility(!isMavVisible);
   };
+
+  const auth = getAuth(app);
+  //check if a user  is signed in to display signin or logoff nav
+  const [signed, setSigned] = useState(null);
+
+  useEffect(() => {
+    const isSignedIn = async () => {
+      try {
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setSigned(user);
+          } else {
+            setSigned(null);
+          }
+        });
+      } catch {}
+    };
+    isSignedIn();
+  }, [signed]);
 
   return (
     <header className="">
@@ -38,11 +49,18 @@ export default function HeaderNav() {
               alt=""
             ></img>
           </Link>
-          <ul className=" text-Black flex  gap-x-3   ">
+          <ul className=" text-Black flex  gap-x-6   ">
             <li className=" ">
-              <Link href={"/"}>
-                <p className="text-xl font-bold text-DBlue">Login</p>
-              </Link>
+              {/* conditionally displaying signin and log off */}
+              {!signed ? (
+                <Link href={"signinPage"}>
+                  <p className="text-xl font-bold text-DBlue">Sign In</p>
+                </Link>
+              ) : (
+               <LogOff  className="text-xl font-bold text-DBlue"></LogOff>
+                  // <p onClick={LogOff} className="text-xl font-bold text-DBlue">Log Off</p>
+              
+              )}
             </li>
             <li className=" ">
               <Link href={"/"}>
