@@ -7,7 +7,7 @@ import { Fragment } from "react";
 
 
 import MainLayout from "@/layout/MainLayout";
-import SignUp from "@/components/authetication/signUp";
+import SignUp from "../components/authetication/signup";
 
 export default function Home() {
   return (
