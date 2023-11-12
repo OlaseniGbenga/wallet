@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import LogOff from "./authetication/logoff";
 
+import { useSelector } from "react-redux";
+
 export default function HeaderNav() {
   const [isNavVisible, setNavVisibility] = useState(false);
   const [isMavVisible, setMavVisibility] = useState(true);
@@ -19,6 +21,7 @@ export default function HeaderNav() {
   };
 
   const auth = getAuth(app);
+   const userName = useSelector((state) => state.userAuth);
   //check if a user  is signed in to display signin or logoff nav
   const [signed, setSigned] = useState(null);
 
@@ -52,7 +55,7 @@ export default function HeaderNav() {
           <ul className=" text-Black flex  gap-x-6   ">
             <li className=" ">
               {/* conditionally displaying signin and log off */}
-              {!signed ? (
+              {!userName ? (
                 <Link href={"signinPage"}>
                   <p className="text-xl font-bold text-DBlue">Sign In</p>
                 </Link>
@@ -101,10 +104,17 @@ export default function HeaderNav() {
                 </Link>
               </li>
               <li className=" ">
-                <Link href={"/signinPage"}>
+              {/* conditionally displaying signin and log off */}
+              {!userName ? (
+                <Link href={"signinPage"}>
                   <p className="text-xl font-bold text-DBlue">Sign In</p>
                 </Link>
-              </li>
+              ) : (
+               <LogOff  className="text-xl font-bold text-DBlue"></LogOff>
+                  // <p onClick={LogOff} className="text-xl font-bold text-DBlue">Log Off</p>
+              
+              )}
+            </li>
               <li className=" ">
                 <Link href={"/aboutus"}>
                   <p className="text-xl font-bold text-DBlue">About Us</p>

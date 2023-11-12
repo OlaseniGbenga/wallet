@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import Link from "next/link";
+
 import { app } from "../../config/firebase";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 
 // firestore
 import { getFirestore, setDoc, doc } from "firebase/firestore";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 // redux
-import { useDispatch } from 'react-redux';
-import {actions} from '../../store/index'
+import { useDispatch } from "react-redux";
+import { actions } from "../../store/index";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -49,15 +53,12 @@ export default function SignUp() {
         password
       );
 
-     
+      // Update user profile with additional details
+      await updateProfile(auth.currentUser, {
+        displayName: firstName,
+      });
 
-// Update user profile with additional details
-await updateProfile(auth.currentUser, {
-  displayName: firstName,
-});
-   
-dispatch(actions.setUserSignIn(
-  user.displayName))
+      dispatch(actions.setUserSignIn(user.displayName));
 
       // Save additional user details to Firestore
       const userDocRef = doc(db, "users", user.uid);
@@ -69,7 +70,7 @@ dispatch(actions.setUserSignIn(
       });
 
       alert("successfully signed");
-      router.push('/');
+      router.push("/");
     } catch (error) {
       alert(error.message);
     }
@@ -114,7 +115,6 @@ dispatch(actions.setUserSignIn(
           <button className="text-white bg-DBlue rounded py-4 px-6 font-bold">
             Sign Up
           </button>
-         
         </form>
       </div>
     </div>

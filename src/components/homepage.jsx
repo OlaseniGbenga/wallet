@@ -17,14 +17,14 @@ export default function HomePage() {
         <p className="text-[1rem] font-bold">
           When life demands too much, let peyme save you with easier payment.
         </p>
-        <div className="flex flex-row mt-4">
+        <div className="flex md:flex-row  flex-col mt-4">
           <Link href={"/signupPage"}>
-            <p className="p-3 sm:mt-3 sm:w-full rounded-md bg-DBlue lg:ml-2  px-6 text-white">
+            <p className="p-3 sm:mt-3 sm:w-full rounded-md bg-DBlue lg:ml-2  px-6 text-center text-white">
               Get Started
             </p>
           </Link>
           <Link href={"/aboutus"}>
-            <p className="p-3 sm:mt-3 sm:w-full rounded-md bg-DBlue lg:ml-2  px-6 text-white ml-4">
+            <p className="p-3 sm:mt-3 sm:w-full rounded-md bg-DBlue md:ml-4 text-center  px-6 text-white ">
               Learn More
             </p>
           </Link>
