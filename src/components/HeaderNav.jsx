@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "../config/firebase";
 
@@ -41,7 +41,7 @@ export default function HeaderNav() {
     <header className="">
       <div className="">
         {/* nav for lg screen */}
-        <div className="  hidden   bg-LBlue  md:flex justify-between px-24 py-6">
+        <div className="  hidden   bg-LBlue  md:flex justify-between lg:px-32 px-4 py-6 md:py-12">
           <Link href={"/"}>
             <img
               className="w-[5rem] md:w-[7rem]"
@@ -63,7 +63,7 @@ export default function HeaderNav() {
               )}
             </li>
             <li className=" ">
-              <Link href={"/"}>
+              <Link href={"/aboutus"}>
                 <p className="text-xl font-bold text-DBlue">About Us</p>
               </Link>
             </li>
@@ -77,7 +77,7 @@ export default function HeaderNav() {
 
         {/* nav for small screen */}
         {isMavVisible && (
-          <div className="md:hidden  flex justify-between sm:px-1 py-8  bg-LBlue">
+          <div className="md:hidden  flex justify-between lg:px-32 px-4 py-8  bg-LBlue">
             <span>
               <img className="w-[5rem]" src="./favicon.png" alt="" />
             </span>
@@ -90,26 +90,27 @@ export default function HeaderNav() {
         {/* toggled menue */}
 
         {isNavVisible && (
-          <div className=" md:hidden  z-10 fixed top-0 left-0  h-screen w-full bg-LBlue">
+          <div className=" md:hidden  z-10 fixed top-0 left-0  h-screen w-full bg-LBlue lg:px-32 px-4">
             <span onClick={toggleNavVisibility} className="">
               <FontAwesomeIcon className="text-[2rem]" icon={faXmark} />
             </span>
             <ul className=" text-Black flex flex-col  gap-x-3  h-screen w-full  ">
-              <li className=" ">
-                <Link href={"/"}>
-                  <p className="text-xl font-bold text-DBlue">Login</p>
-                </Link>
-              </li>
-              <li className=" ">
-                <Link href={"/"}>
-                  <p className="text-xl font-bold text-DBlue">About Us</p>
-                </Link>
-              </li>
-              <li className=" ">
+            <li className=" ">
                 <Link href={"/"}>
                   <p className="text-xl font-bold text-DBlue">Contact</p>
                 </Link>
               </li>
+              <li className=" ">
+                <Link href={"/signinPage"}>
+                  <p className="text-xl font-bold text-DBlue">Sign In</p>
+                </Link>
+              </li>
+              <li className=" ">
+                <Link href={"/aboutus"}>
+                  <p className="text-xl font-bold text-DBlue">About Us</p>
+                </Link>
+              </li>
+             
             </ul>
           </div>
         )}
