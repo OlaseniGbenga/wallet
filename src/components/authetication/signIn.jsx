@@ -4,6 +4,9 @@ import {app} from '../../config/firebase'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from 'next/router';
 
+import { useDispatch } from 'react-redux';
+import {actions} from '../../store/index'
+
 
 
 
@@ -19,13 +22,19 @@ export default function SignIn() {
  
   const auth = getAuth(app);
 
+  const dispatch = useDispatch();
+
   const signIn = async (e) => {
     e.preventDefault();
     try {
 
      
       //create new user with email and password
-     await signInWithEmailAndPassword(auth,email,password);
+  const signedIn =   await signInWithEmailAndPassword(auth,email,password);
+  dispatch(actions.setUserSignIn(
+    signedIn.user.displayName))
+  alert(signedIn.user.displayName)
+  console.log(signedIn);
     alert("successfully signed in")
     router.push('/');
       } catch (error) {
