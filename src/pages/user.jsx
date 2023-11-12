@@ -2,6 +2,9 @@ import { Fragment } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { useSelector} from 'react-redux';
+
+
 
 import {
   faUser,
@@ -14,6 +17,9 @@ import {
 
 
 export default function User() {
+
+    const userName = useSelector((state) => state.userAuth);
+    console.log("user name ", userName);
   return (
     <Fragment>
       <title>Wallet</title>
@@ -23,7 +29,7 @@ export default function User() {
           <p className="sm:text-xl">
             {" "}
             <FontAwesomeIcon className="mr-[1rem] text-DBlue" icon={faUser} />
-            Hi, User
+            Hi {userName}
           </p>
         </section>
         <section className="mt-6 py-4 px-8 sm:px-2 rounded bg-DBlue text-white flex flex-row justify-between lg:w-[40rem] w-full ">
